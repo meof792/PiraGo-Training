@@ -1,6 +1,6 @@
 # PiraGo-Training
 
-* A progress in PiraGo Internship
+*A progress in PiraGo Internship*
 
 - This repo is a report about PiraGo Internship
 

@@ -15,4 +15,5 @@
 - Status check: git status
 - Lưu thay đổi vào local: git stash"
 
-* git stash: https://blog.pirago.vn/git-stash-cho-nhung-nguoi-thich-su-hoan-hao/
+*git stash: https://blog.pirago.vn/git-stash-cho-nhung-nguoi-thich-su-hoan-hao/*
+
