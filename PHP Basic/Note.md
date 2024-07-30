@@ -1,6 +1,7 @@
 # Operator
 
 - Phép toán 3 chiều: <=>:
+```php
 <?php
 echo "Hello, World!";
 ?>
