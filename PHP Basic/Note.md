@@ -1,3 +1,5 @@
+_Chỉ note những thứ có vẻ hay_
+
 # Operator
 
 - Phép <> giống !=
@@ -96,10 +98,7 @@ catch(Exception $e) {
 
 # OOP
 
-## Tính trừu tượng
-
-## Tính đóng gói
-
-## Tính kế thừa
-
-## Tính đa hình
+- Tính trừu tượng
+- Tính đóng gói
+- Tính kế thừa
+- Tính đa hình
