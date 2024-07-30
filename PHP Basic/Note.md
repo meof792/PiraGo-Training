@@ -3,8 +3,10 @@
 - Phép toán 3 chiều: <=>:
 ```php
 <?php
-echo "Hello, World!";
+    $result = $a <=> $b;
+    echo $result; // -1 nếu a < b, 0 nếu a = b, 1 nếu a > b
 ?>
+```
 
 # Loop
 
