@@ -1,0 +1,10 @@
+<body></body>
+<script>
+    function draw(size) {
+        for (let i = 0; i < size; i++) {
+            document.write("<pre>" + "   ".repeat(i) + "*  ".repeat((size * 2 - 1) - i*2) + "   ".repeat(i) + "</pre>\n");
+        }
+    }
+
+    draw(5);
+</script>
