@@ -15,8 +15,6 @@ return new class extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('status');
-            $table->text('description');
-            $table->timestamps();
         });
     }
 

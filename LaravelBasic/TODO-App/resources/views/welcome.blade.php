@@ -21,22 +21,15 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            max-height: 80vh;
+            width: 50%;
         }
 
-        h1 {
+        h1,
+        h3 {
             text-align: center;
             font-size: 24px;
             margin-bottom: 20px;
-        }
-
-        .todo-input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
         }
 
         .todo-list {
@@ -64,53 +57,85 @@
         .delete-btn {
             background: none;
             border: none;
-            color: #ff0000;
+            color: black;
             font-size: 18px;
             cursor: pointer;
         }
+
+        .complete-btn {
+            background: none;
+            border: none;
+            color: green;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .overdue {
+            background-color: red;
+            /* Màu đỏ cho các công việc quá hạn */
+        }
+
+        .not-overdue {
+            background-color: orange;
+            /* Màu cam cho các công việc chưa tới hạn */
+        }
+
+        .complete {
+            text-decoration: line-through;
+            background-color: green;
+            /* Màu xanh cho các công việc đã hoàn thành */
+        }
     </style>
+
+    <script>
+        function add() {
+            document.getElementById('formAdd').style.display = 'block';
+            document.getElementById('buttonAdd').style.display = 'none';
+        }
+    </script>
 </head>
 
 <body>
     <div class="todo-container">
         <h1>Todo App</h1>
-        <input type="text" class="todo-input" placeholder="Add a new task...">
-        <ul class="todo-list">
-            <li class="todo-item">
-                <input type="checkbox">
-                <span>Sample Task 1</span>
-                <button class="delete-btn">&times;</button>
-            </li>
-            <li class="todo-item">
-                <input type="checkbox">
-                <span>Sample Task 2</span>
-                <button class="delete-btn">&times;</button>
-            </li>
+        <ul class="todo-list" style="height: 60%;">
+            @foreach ($todos as $todo)
+            @php
+            $today = \Carbon\Carbon::today()->format('d-m-Y');
+            $deadline = \Carbon\Carbon::parse($todo->deadline)->format('d-m-Y');
+            $isComplete = false;
+            if($todo->status == 1){
+                $isComplete = true;
+            }
+            $isOverdue = $deadline < $today; @endphp <li class="todo-item {{ $isComplete ? 'complete' : ($isOverdue ? 'overdue' : 'not-overdue') }}">
+                <form action="complete" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{$todo->id}}">
+                    <button type="submit" class="complete-btn">&#10003;</button>
+                </form>
+                <span><b>{{ $todo->title }}</b> at <b>{{ $deadline }}</b></span>
+                <form action="delete" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{$todo->id}}">
+                    <button type="submit" class="delete-btn">X</button>
+                </form>
+                </li>
+                @endforeach
         </ul>
+        <hr>
+        <div id="formAdd" style="display: none">
+            <form action="addcheck" method="post" style="text-align: center; justify-content: center; align-items: center;">
+                @csrf
+                <h3>Add new task</h3>
+                <input type="text" placeholder="Enter a task's name" name="taskName" required>
+                <input type="date" name="deadline" required>
+                <button type="submit">Xác nhận</button>
+            </form>
+        </div>
+        <div id="buttonAdd" style="text-align: center; justify-content: center; align-items: center;">
+            <button onclick="add()">Add a new task</button>
+        </div>
     </div>
-
-    <script>
-        document.querySelector('.todo-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && this.value.trim() !== '') {
-                const taskText = this.value.trim();
-                const newTask = document.createElement('li');
-                newTask.classList.add('todo-item');
-                newTask.innerHTML = `
-                    <input type="checkbox">
-                    <span>${taskText}</span>
-                    <button class="delete-btn">&times;</button>
-                `;
-                document.querySelector('.todo-list').appendChild(newTask);
-                this.value = '';
-            }
-        });
-
-        document.querySelector('.todo-list').addEventListener('click', function(e) {
-            if (e.target.classList.contains('delete-btn')) {
-                e.target.parentElement.remove();
-            }
-        });
-    </script>
 </body>
 
 </html>
