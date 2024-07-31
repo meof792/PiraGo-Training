@@ -29,7 +29,22 @@
 ## Routing trong Laravel
 
 - **Route Basic**: Định nghĩa route với `Route::get`, `Route::post`, etc.
+
+```php
+// Định nghĩa một route GET
+Route::get('/users', function () {
+    return 'Danh sách người dùng';
+});
+```
+
 - **Route Parameters**: Định nghĩa các tham số động.
+
+```php
+Route::get('/user/{id}', function ($id) {
+    return "Người dùng có ID: $id";
+});
+```
+
 - **Route Groups**: Nhóm các route với các thuộc tính chung như middleware, prefix.
 - **Named Routes**: Đặt tên cho route để dễ dàng tham chiếu.
 - **Route Model Binding**: Tự động inject model vào route.
