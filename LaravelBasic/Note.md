@@ -15,8 +15,6 @@
 
 ## Vòng đời của Request trong Laravel
 
-# Vòng Đời Của Request Trong Laravel
-
 ```plaintext
     +--------------------+
   |     Browser        |  <-- Người dùng gửi request từ trình duyệt
