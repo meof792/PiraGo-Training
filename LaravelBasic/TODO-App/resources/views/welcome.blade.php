@@ -36,6 +36,8 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
+            overflow-y: auto;
+            max-height: 600px;
         }
 
         .todo-item {
@@ -98,7 +100,7 @@
 <body>
     <div class="todo-container">
         <h1>Todo App</h1>
-        <ul class="todo-list" style="height: 60%; overflow-y: scroll;">
+        <ul class="todo-list">
             @foreach ($todos as $todo)
             @php
             $today = \Carbon\Carbon::today()->format('Y-m-d');
