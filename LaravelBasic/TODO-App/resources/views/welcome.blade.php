@@ -55,17 +55,17 @@
         }
 
         .delete-btn {
-            background: none;
-            border: none;
+            background-color: white;
+            border: 1px solid black;
             color: black;
             font-size: 18px;
             cursor: pointer;
         }
 
         .complete-btn {
-            background: none;
-            border: none;
-            color: green;
+            background-color: white;
+            border: green;
+            color: black;
             font-size: 18px;
             cursor: pointer;
         }
@@ -105,7 +105,7 @@
             $deadline = \Carbon\Carbon::parse($todo->deadline)->format('d-m-Y');
             $isComplete = false;
             if($todo->status == 1){
-                $isComplete = true;
+            $isComplete = true;
             }
             $isOverdue = $deadline < $today; @endphp <li class="todo-item {{ $isComplete ? 'complete' : ($isOverdue ? 'overdue' : 'not-overdue') }}">
                 <form action="complete" method="post">
