@@ -98,16 +98,15 @@
 <body>
     <div class="todo-container">
         <h1>Todo App</h1>
-        <ul class="todo-list" style="height: 60%;">
+        <ul class="todo-list" style="height: 60%; overflow-y: scroll;">
             @foreach ($todos as $todo)
             @php
-            $today = \Carbon\Carbon::today()->format('d-m-Y');
+            $today = \Carbon\Carbon::today()->format('Y-m-d');
+            $deadline = \Carbon\Carbon::parse($todo->deadline)->format('Y-m-d');
+            $isComplete = $todo->status == 1;
+            $isOverdue = $deadline < $today; 
             $deadline = \Carbon\Carbon::parse($todo->deadline)->format('d-m-Y');
-            $isComplete = false;
-            if($todo->status == 1){
-            $isComplete = true;
-            }
-            $isOverdue = $deadline < $today; @endphp <li class="todo-item {{ $isComplete ? 'complete' : ($isOverdue ? 'overdue' : 'not-overdue') }}">
+            @endphp <li class="todo-item {{ $isComplete ? 'complete' : ($isOverdue ? 'overdue' : 'not-overdue') }}">
                 <form action="complete" method="post">
                     @csrf
                     <input type="hidden" name="id" value="{{$todo->id}}">
