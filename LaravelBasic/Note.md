@@ -18,7 +18,7 @@
 # Vòng Đời Của Request Trong Laravel
 
 ```plaintext
-  +--------------------+
+    +--------------------+
   |     Browser        |  <-- Người dùng gửi request từ trình duyệt
   +--------------------+
             |
@@ -44,6 +44,11 @@
             |
             v
   +--------------------+
+  | HTTP Kernel        |  <-- Located in: app/Http/Kernel.php
+  +--------------------+
+            |
+            v
+  +--------------------+
   | Register Service   |
   |   Providers        |  <-- Located in: config/app.php
   +--------------------+
@@ -56,7 +61,7 @@
             |
             v
   +--------------------+
-  |   Handle Request   |  <-- Xử lý request
+  | Handle Request     |  <-- Xử lý request
   +--------------------+
             |
             v
