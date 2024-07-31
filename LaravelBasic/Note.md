@@ -15,16 +15,87 @@
 
 ## Vòng đời của Request trong Laravel
 
-1. **index.php**: Khởi động ứng dụng.
-2. **Autoload và Khởi Động Ứng Dụng**.
-3. **HTTP Kernel**: Xử lý yêu cầu qua middleware.
-4. **Middleware Toàn Cục**.
-5. **Route Service Provider**: Đăng ký tất cả các route.
-6. **Middleware Route**.
-7. **Controller hoặc Closure**: Xử lý logic nghiệp vụ.
-8. **Tạo Đối Tượng Response**.
-9. **Middleware Phản Hồi**.
-10. **Gửi Phản Hồi về Trình Duyệt**.
+# Vòng Đời Của Request Trong Laravel
+
+```plaintext
+  +--------------------+
+  |     Browser        |  <-- Người dùng gửi request từ trình duyệt
+  +--------------------+
+            |
+            v
+  +--------------------+
+  |    Web Server      |  <-- Web server (Apache/Nginx) nhận request
+  +--------------------+
+            |
+            v
+  +--------------------+
+  |  Public/index.php  |  <-- Located in: public/index.php
+  +--------------------+
+            |
+            v
+  +--------------------+
+  |  Autoload Files    |  <-- Autoload các file thông qua Composer
+  +--------------------+
+            |
+            v
+  +--------------------+
+  | Create App Instance|  <-- Tạo một instance của ứng dụng Laravel
+  +--------------------+
+            |
+            v
+  +--------------------+
+  | Register Service   |
+  |   Providers        |  <-- Located in: config/app.php
+  +--------------------+
+            |
+            v
+  +--------------------+
+  | Boot Service       |
+  |   Providers        |  <-- Khởi động các service providers
+  +--------------------+
+            |
+            v
+  +--------------------+
+  |   Handle Request   |  <-- Xử lý request
+  +--------------------+
+            |
+            v
+  +--------------------+
+  | Route Service      |
+  |   Provider         |  <-- Xác định route và controller phù hợp
+  +--------------------+
+            |
+            v
+  +--------------------+
+  | Route Middleware   |  <-- Chạy các middleware được gán cho route
+  +--------------------+
+            |
+            v
+  +--------------------+
+  |   Controller       |  <-- Located in: app/Http/Controllers/
+  +--------------------+
+            |
+            v
+  +--------------------+
+  |  Action Logic      |  <-- Logic của action trong controller
+  +--------------------+
+            |
+            v
+  +--------------------+
+  | Return Response    |  <-- Controller trả về một response
+  +--------------------+
+            |
+            v
+  +--------------------+
+  |  Middleware        |  <-- Chạy các middleware sau response (nếu có)
+  +--------------------+
+            |
+            v
+  +--------------------+
+  | Return to Browser  |  <-- Response cuối cùng được gửi về trình duyệt
+  +--------------------+
+
+```
 
 ## Routing trong Laravel
 
