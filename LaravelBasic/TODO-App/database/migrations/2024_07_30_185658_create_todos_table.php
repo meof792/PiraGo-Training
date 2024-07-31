@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('todos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('status');
+            $table->integer('status');
+            $table->date('deadline');
         });
     }
 
