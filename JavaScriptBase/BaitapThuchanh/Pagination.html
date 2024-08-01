@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination with Dots</title>
+    <style>
+        .pagination {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+        }
+        .pagination li {
+            margin: 0 5px;
+        }
+        .pagination li a {
+            text-decoration: none;
+            color: black;
+        }
+        .pagination li a.active {
+            font-weight: bold;
+            color: red;
+        }
+        .dots {
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <ul class="pagination" id="pagination"></ul>
+
+    <script>
+        const totalPages = 50; // Tổng số trang
+        const currentPage = 10; // Trang hiện tại
+
+        function createPagination(totalPages, currentPage) {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            // Nút đầu tiên
+            if (currentPage > 1) {
+                const firstPage = document.createElement('li');
+                firstPage.innerHTML = `<a href="javascript:void(0);" onclick="changePage(1)">First</a>`;
+                pagination.appendChild(firstPage);
+            }
+
+            // Nút trang trước
+            if (currentPage > 1) {
+                const prevPage = document.createElement('li');
+                prevPage.innerHTML = `<a href="javascript:void(0);" onclick="changePage(${currentPage - 1})">Prev</a>`;
+                pagination.appendChild(prevPage);
+            }
+
+            // Các trang
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+
+            if (currentPage > 3) {
+                const firstDots = document.createElement('li');
+                firstDots.innerHTML = `<span class="dots">...</span>`;
+                pagination.appendChild(firstDots);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.innerHTML = `<a href="javascript:void(0);" class="${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</a>`;
+                pagination.appendChild(pageItem);
+            }
+
+            if (currentPage < totalPages - 2) {
+                const lastDots = document.createElement('li');
+                lastDots.innerHTML = `<span class="dots">...</span>`;
+                pagination.appendChild(lastDots);
+            }
+
+            // Nút trang kế tiếp
+            if (currentPage < totalPages) {
+                const nextPage = document.createElement('li');
+                nextPage.innerHTML = `<a href="javascript:void(0);" onclick="changePage(${currentPage + 1})">Next</a>`;
+                pagination.appendChild(nextPage);
+            }
+
+            // Nút cuối cùng
+            if (currentPage < totalPages) {
+                const lastPage = document.createElement('li');
+                lastPage.innerHTML = `<a href="javascript:void(0);" onclick="changePage(${totalPages})">Last</a>`;
+                pagination.appendChild(lastPage);
+            }
+        }
+
+        function changePage(page) {
+            createPagination(totalPages, page);
+        }
+
+        createPagination(totalPages, currentPage);
+    </script>
+</body>
+</html>

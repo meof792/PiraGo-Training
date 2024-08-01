@@ -1,0 +1,19 @@
+<body>
+    <div id = "div">Don't hide me away</div>
+    <button id ="button"onclick="hideDiv()">Hide</button>
+    <button onclick="deleteDiv()">Or delete me</button>
+    <button onclick="addDiv()">Make a new friend</button>
+</body>
+<script>
+    function hideDiv(){
+        document.getElementById('div').style.display = 'none';
+    }
+    function deleteDiv(){
+        document.getElementById('div').remove();
+    }
+    function addDiv(){
+            var newDiv = document.createElement('div');
+            newDiv.innerHTML = 'I am a new div';
+            document.body.insertBefore(newDiv, document.getElementById('button'));
+        }
+</script>
