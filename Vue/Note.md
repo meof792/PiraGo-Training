@@ -148,3 +148,5 @@ export default {
 };
 </script>
 ```
+
+## Binding and Event Handling
