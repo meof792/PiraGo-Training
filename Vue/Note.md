@@ -150,3 +150,98 @@ export default {
 ```
 
 ## Binding and Event Handling
+
+## Component
+
+- Props cho phép truyền dữ liệu từ component cha sang component con
+
+    - ParentComponent.vue:
+
+    ```vue
+    <template>
+    <div>
+        <ChildComponent :message="parentMessage" />
+    </div>
+    </template>
+
+    <script>
+    import ChildComponent from './ChildComponent.vue';
+
+    export default {
+    components: {
+        ChildComponent
+    },
+    data() {
+        return {
+        parentMessage: 'Hello from Parent'
+        };
+    }
+    };
+    </script>
+    ```
+
+    - ChildComponent.vue
+
+    ```vue
+    <template>
+    <div>
+        <h2>{{ message }}</h2>
+    </div>
+    </template>
+
+    <script>
+    export default {
+    props: {
+        message: String
+    }
+    };
+    </script>
+    ```
+- Để truyền dữ liệu hoặc sự kiện từ component con lên component cha, sử dụng this.$emit.
+
+    - ChildComponent.vue
+
+    ```vue 
+    <template>
+    <div>
+        <button @click="sendMessage">Send Message</button>
+    </div>
+    </template>
+
+    <script>
+    export default {
+    methods: {
+        sendMessage() {
+        this.$emit('message-sent', 'Hello from Child');
+        }
+    }
+    };
+    </script>
+    ```
+
+    - ParentComponent.vue
+
+    ```vue
+    <template>
+    <div>
+        <ChildComponent @message-sent="handleMessage" />
+    </div>
+    </template>
+
+    <script>
+    import ChildComponent from './ChildComponent.vue';
+
+    export default {
+    components: {
+        ChildComponent
+    },
+    methods: {
+        handleMessage(message) {
+        console.log(message);
+        }
+    }
+    };
+    </script>
+    ```
+
+- Slots cho phép chèn nội dung vào component từ bên ngoài
