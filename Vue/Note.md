@@ -151,6 +151,17 @@ export default {
 
 ## Binding and Event Handling
 
+## Rendering
+
+## Forms
+
+- 1 vài v-model có vẻ hay
+
+```vue
+<input v-model.number="age" />
+<input v-model.trim="msg" />
+```
+
 ## Component
 
 - Props cho phép truyền dữ liệu từ component cha sang component con
@@ -245,3 +256,5 @@ export default {
     ```
 
 - Slots cho phép chèn nội dung vào component từ bên ngoài
+
+## CSS
