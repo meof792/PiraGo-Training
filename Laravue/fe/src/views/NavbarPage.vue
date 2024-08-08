@@ -11,10 +11,15 @@
       <li class="navbar-item">
         <router-link to="/tasks">Công việc</router-link>
       </li>
-      <li class="navbar-item">
-        <router-link to="/admin">Quản lý</router-link>
-      </li>
       <li class="navbar-item dropdown">
+        <a href="#" @click.prevent="toggleDropdownAdmin" class="dropdown-toggle"
+          >Quản lý</a>
+        <ul v-if="dropdownAdminOpen" class="dropdown-menu">
+          <li><router-link to="/admin-tasks">Quản lý công việc</router-link></li>
+          <li><router-link to="/admin-member">Quản lý nhân viên</router-link></li>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown" v-if="username">
         <a href="#" @click.prevent="toggleDropdown" class="dropdown-toggle"
           >Xin chào: <i>{{ username }}</i></a
         >
@@ -29,21 +34,27 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 
 const username = localStorage.getItem("username");
 const isMenuOpen = ref(false);
 const dropdownOpen = ref(false);
-const router = useRouter();
+const dropdownAdminOpen = ref(false);
+// const router = useRouter();
 
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value;
 };
+const toggleDropdownAdmin = () => {
+  dropdownAdminOpen.value = !dropdownAdminOpen.value; // Thêm hàm để toggle dropdown Quản lý
+};
+
 
 const logout = () => {
   localStorage.removeItem("id");
   localStorage.removeItem("username");
-  router.push("/login");
+  // router.push('/');
+  window.location.href="/login";
 };
 </script>
 

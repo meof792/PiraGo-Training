@@ -32,15 +32,15 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
-  name: "Noti",
+  name: "NotiPage",
   components: {},
 };
 </script>
   
-<style>
+<style scoped>
 .additional-div {
   display: none; /* Ẩn mặc định */
 }

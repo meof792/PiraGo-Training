@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
@@ -60,7 +60,8 @@ const login = async () => {
       localStorage.setItem('id', response.data.id);
       localStorage.setItem('username', response.data.username);
       alert('Đăng nhập thành công!');
-      router.push('/');
+      // router.push('/');
+      window.location.href="/";
     } else {
       alert('Tên tài khoản hoặc mật khẩu không đúng');
     }
@@ -68,6 +69,11 @@ const login = async () => {
     console.error(error);
   }
 };
+onMounted(() => {
+  if (localStorage.getItem("id")) {
+    router.push("/");
+  }
+});
 </script>
 
 <style scoped>

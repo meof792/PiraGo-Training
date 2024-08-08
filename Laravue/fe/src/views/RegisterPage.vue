@@ -55,7 +55,7 @@
 </template>
   
   <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 
@@ -90,9 +90,14 @@ const register = async () => {
     console.error(error);
   }
 };
+onMounted(() => {
+  if (localStorage.getItem("id")) {
+    router.push("/");
+  }
+});
 </script>
   
-  <style scoped>
+<style scoped>
 .signup-container {
   display: flex;
   justify-content: center;

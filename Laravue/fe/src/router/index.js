@@ -2,26 +2,32 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // Import các component cho các routes
 import MainPage from '../views/MainPage.vue';
-import Login from '../views/Login.vue';
-import Register from '../views/Register.vue';
-import Noti from '../views/Noti.vue';
+import LoginPage from '../views/LoginPage.vue';
+import RegisterPage from '../views/RegisterPage.vue';
+import NotiPage from '../views/NotiPage.vue';
+import MemberPage from '../views/MemberPage.vue';
 
 // Định nghĩa các routes
 const routes = [
   {
+    path: '/admin-member',
+    name: 'MemberPage',
+    component: MemberPage
+  },
+  {
     path: '/noti',
-    name: 'Noti',
-    component: Noti
+    name: 'NotiPage',
+    component: NotiPage
   },
   {
     path: '/register',
-    name: 'Register',
-    component: Register
+    name: 'RegisterPage',
+    component: RegisterPage
   },
   {
     path: '/login',
-    name: 'Login',
-    component: Login
+    name: 'LoginPage',
+    component: LoginPage
   },
   {
     path: '/',

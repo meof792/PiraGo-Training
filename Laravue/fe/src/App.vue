@@ -22,36 +22,13 @@
 </template>
 
 <script setup>
-
-import Navbar from "./views/Navbar.vue";
-
-import { onMounted } from "vue";
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-onMounted(() => {
-  if (!localStorage.getItem("id")) {
-    alert("Bạn chưa đăng nhập!");
-    router.push("/login");
-  }
-});
+import Navbar from "./views/NavbarPage.vue";
 </script>
 
 <style>
-.col-lg-2,
-.col-md-2,
-.col-2,
-.col-lg-10,
-.col-md-10,
-.col-10 {
-  /* padding: 0;
-  margin: 0; */
-}
-
 body {
   overflow-x: hidden;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 .nav-row {

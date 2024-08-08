@@ -15,6 +15,8 @@ return new class extends Migration
             $table->increments('id');
             $table->integer('in_company'); //id của công ty
             $table->integer('by'); //id của người đăng thông báo
+            $table->string('title'); //tiêu đề thông báo
+            $table->string('content'); //nội dung thông báo
             $table->timestamp('timestamp');
         });
     }
