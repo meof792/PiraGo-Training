@@ -4,7 +4,7 @@
       <div class="row">
         <Navbar />
         <div class="col-lg-12 col-md-12 col-12">
-          <router-view></router-view>
+          <MainPage />
         </div>
       </div>
     </div>
@@ -14,7 +14,7 @@
           <Navbar />
         </div>
         <div class="col-lg-10 col-md-10 col-10">
-          <router-view></router-view>
+          <MainPage />
         </div>
       </div>
     </div>
@@ -23,7 +23,8 @@
 
 <script setup>
 
-import Navbar from "./views/Navbar.vue";
+import Navbar from "./Navbar.vue";
+import MainPage from "./MainPage.vue";
 
 import { onMounted } from "vue";
 import { useRouter } from 'vue-router';
@@ -38,20 +39,15 @@ onMounted(() => {
 });
 </script>
 
-<style>
+<style scoped>
 .col-lg-2,
 .col-md-2,
 .col-2,
 .col-lg-10,
 .col-md-10,
 .col-10 {
-  /* padding: 0;
-  margin: 0; */
-}
-
-body {
-  overflow-x: hidden;
-  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-row {
