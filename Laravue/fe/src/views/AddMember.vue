@@ -1,16 +1,17 @@
 <template>
-  <div class="signup-container">
+  <div class="addmember-container">
     <div class="additional-div"></div>
-    <div class="signup-form">
-      <h2>Đăng ký</h2>
-      <form @submit.prevent="register">
+    <div class="addmember-form">
+      <h2>Đăng ký thành viên</h2>
+      <form @submit.prevent="addMember">
         <div class="form-group">
           <label for="username">Tên</label>
           <input
             type="text"
             id="username"
             v-model="username"
-            placeholder="Nhập tên của bạn"
+            @input="errorMessage = ''"
+            placeholder="Nhập tên của thành viên"
             required
           />
           <small>Đây là tên sẽ hiển thị với các thành viên khác</small>
@@ -21,6 +22,7 @@
             type="password"
             id="password"
             v-model="password"
+            @input="errorMessage = ''"
             placeholder="Nhập mật khẩu"
             required
           />
@@ -32,58 +34,59 @@
             type="password"
             id="confirm-password"
             v-model="confirmPassword"
+            @input="errorMessage = ''"
             placeholder="Nhập mật khẩu"
             required
           />
         </div>
         <div class="form-group">
-          <label for="company">Nhập tên công ty/tổ chức</label>
+          <label for="salary">Mức lương</label>
           <input
-            type="text"
-            id="company"
-            v-model="company"
-            placeholder="Nhập tên công ty/tổ chức"
-            required
+            type="number"
+            id="salary"
+            v-model="salary"
+            @input="errorMessage = ''"
+            placeholder="Có thể bỏ trống"
           />
-          <small>Mặc định bạn sẽ là người quản lý công ty</small>
         </div>
-        Đã có tài khoản? <router-link to="/login">Đăng nhập</router-link> ngay
         <button type="submit">Đăng ký</button>
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       </form>
     </div>
   </div>
 </template>
-  
-  <script setup>
+
+<script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 
+const router = useRouter();
 const username = ref("");
-const company = ref("");
+const salary = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const errorMessage = ref("");
 
-const router = useRouter();
-
-const register = async () => {
+const addMember = async () => {
   if (password.value !== confirmPassword.value) {
     errorMessage.value = "Vui lòng nhập đúng mật khẩu";
     return;
   }
 
   try {
-    const response = await axios.post("http://127.0.0.1:8000/api/register", {
+    const response = await axios.post("http://127.0.0.1:8000/api/add-member", {
+      id: sessionStorage.getItem("id"), //id người gửi
       username: username.value,
-      company: company.value,
+      salary: salary.value,
       password: password.value,
     });
 
     if (response.data.success) {
-      alert("Đăng kí thành công! Mã đăng nhập của bạn là " + response.data.id);
-      router.push("/login"); // Redirect to login page
+      alert(
+        "Đăng kí thành công! Mã đăng nhập của thành viên là " + response.data.id
+      );
+      router.push("/admin-member");
     } else {
       errorMessage.value = response.data.msg;
     }
@@ -91,15 +94,19 @@ const register = async () => {
     console.error(error);
   }
 };
+
 onMounted(() => {
-  if (sessionStorage.getItem("id")) {
-    router.push("/");
+  if (
+    !sessionStorage.getItem("id") ||
+    sessionStorage.getItem("is_manager") != 1
+  ) {
+    router.push("/login");
   }
 });
 </script>
-  
+
 <style scoped>
-.signup-container {
+.addmember-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,7 +114,7 @@ onMounted(() => {
   background-color: #f0f0f0;
 }
 
-.signup-form {
+.addmember-form {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -116,7 +123,7 @@ onMounted(() => {
   width: 100%;
 }
 
-.signup-form h2 {
+.addmember-form h2 {
   margin-bottom: 20px;
   text-align: center;
 }
@@ -159,4 +166,3 @@ button:hover {
   margin-top: 10px;
 }
 </style>
-  

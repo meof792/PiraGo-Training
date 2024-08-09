@@ -13,10 +13,15 @@
       </li>
       <li class="navbar-item dropdown">
         <a href="#" @click.prevent="toggleDropdownAdmin" class="dropdown-toggle"
-          >Quản lý</a>
+          >Quản lý</a
+        >
         <ul v-if="dropdownAdminOpen" class="dropdown-menu">
-          <li><router-link to="/admin-tasks">Quản lý công việc</router-link></li>
-          <li><router-link to="/admin-member">Quản lý nhân viên</router-link></li>
+          <li>
+            <router-link to="/admin-tasks">Quản lý công việc</router-link>
+          </li>
+          <li>
+            <router-link to="/admin-member">Quản lý thành viên</router-link>
+          </li>
         </ul>
       </li>
       <li class="navbar-item dropdown" v-if="username">
@@ -36,25 +41,25 @@
 import { ref } from "vue";
 // import { useRouter } from "vue-router";
 
-const username = localStorage.getItem("username");
+const username = sessionStorage.getItem("username");
 const isMenuOpen = ref(false);
 const dropdownOpen = ref(false);
 const dropdownAdminOpen = ref(false);
 // const router = useRouter();
-
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value;
+  dropdownAdminOpen.value = false;
 };
 const toggleDropdownAdmin = () => {
-  dropdownAdminOpen.value = !dropdownAdminOpen.value; // Thêm hàm để toggle dropdown Quản lý
+  dropdownAdminOpen.value = !dropdownAdminOpen.value;
+  dropdownOpen.value = false;
 };
 
-
 const logout = () => {
-  localStorage.removeItem("id");
-  localStorage.removeItem("username");
+  sessionStorage.removeItem("id");
+  sessionStorage.removeItem("username");
   // router.push('/');
-  window.location.href="/login";
+  window.location.href = "/login";
 };
 </script>
 

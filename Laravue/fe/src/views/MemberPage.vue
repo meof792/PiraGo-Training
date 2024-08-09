@@ -3,7 +3,13 @@
     <div class="additional-div"></div>
     <div>
       <h3>Danh sách thành viên:</h3>
-      <button class="btn btn-info">Thêm nhân viên</button>
+      <input
+        type="text"
+        placeholder="Nhập tên thành viên muốn tìm"
+        v-model="searchQuery"
+        @keyup.enter="searchMembers"
+        class="form-control mb-3"
+      />
       <div class="row">
         <div
           class="col-lg-3 col-md-6 col-sm-6 col-6"
@@ -11,24 +17,42 @@
           v-for="member in paginatedMember"
           :key="member.id"
         >
-        <router-link class="card" style="width: 100%; height: 100%" to="#">
-          <img src="test.png" alt="Avatar"  style="width: 100%; height:250px" />
-          <div class="username">{{ member.username }}</div>
-          <div class="info">
-            <span class="info-label">Lương:</span> {{ member.salary }}
-          </div>
-          <div class="info">
-            <span class="info-label">Ngày sinh:</span>
-            {{ member.birthday }}
-          </div>
-          <div class="info">
-            <span class="info-label">Thành viên từ:</span>
-            {{ member.since }}
-          </div>
-        </router-link>
+          <router-link class="card" style="width: 100%; height: 100%" to="#">
+            <img
+              src="test.png"
+              alt="Avatar"
+              style="width: 100%; height: 200px"
+            />
+            <div class="username">{{ member.username }}</div>
+            <div class="info">
+              <span class="info-label">Mã đăng nhập:</span>
+              {{ member.id }}
+            </div>
+            <div class="info">
+              <span class="info-label">Ngày sinh:</span>
+              {{ member.birthday }}
+            </div>
+            <div class="info">
+              <span class="info-label">Lương:</span> {{ member.salary }}
+            </div>
+            <div class="info">
+              <span class="info-label">Thành viên từ:</span>
+              {{ member.since }}
+            </div>
+          </router-link>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+          <router-link to="/add-member" class="btn btn-info"
+            >Thêm thành viên</router-link
+          >
+        </div>
+      </div>
+      <div class="row">
         <div class="pagination">
           <button
+            class="page-link"
             type="button"
             @click="prevPageAndScroll"
             :disabled="currentPage === 1"
@@ -37,6 +61,7 @@
           </button>
           <span v-for="page in displayPages" :key="page">
             <button
+              class="page-link"
               v-if="page !== '...'"
               type="button"
               @click="goToPage(page)"
@@ -47,6 +72,7 @@
             <span v-else>...</span>
           </span>
           <button
+            class="page-link"
             type="button"
             @click="nextPageAndScroll"
             :disabled="currentPage === totalPages"
@@ -65,20 +91,26 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-// const tasks = ref([]);
-
 const members = ref([]);
 const currentPage = ref(1);
 const itemsPerPage = ref(8);
+const searchQuery = ref(""); // For storing the search query
 
 const totalPages = computed(() => {
-  return Math.ceil(members.value.length / itemsPerPage.value);
+  return Math.ceil(filteredMembers.value.length / itemsPerPage.value);
+});
+
+const filteredMembers = computed(() => {
+  // Filter members based on the search query
+  return members.value.filter((member) =>
+    member.username.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
 });
 
 const paginatedMember = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value;
   const end = start + itemsPerPage.value;
-  return members.value.slice(start, end);
+  return filteredMembers.value.slice(start, end);
 });
 
 const displayPages = computed(() => {
@@ -120,6 +152,7 @@ const displayPages = computed(() => {
 
   return pages;
 });
+
 const goToPage = (page) => {
   if (page === "...") return;
   currentPage.value = page; // Cập nhật currentPage
@@ -156,13 +189,18 @@ const prevPage = () => {
     currentPage.value--;
   }
 };
+
+const searchMembers = () => {
+  currentPage.value = 1; // Reset to first page when searching
+};
+
 const fetchUsers = async () => {
   try {
     const response = await axios.get(
       "http://127.0.0.1:8000/api/get-users",
       {
         params: {
-          id: localStorage.getItem("id"), // id người dùng
+          id: sessionStorage.getItem("id"), // id người dùng
         },
       },
       {
@@ -185,8 +223,12 @@ const fetchUsers = async () => {
     console.error(error);
   }
 };
+
 onMounted(() => {
-  if (!localStorage.getItem("id")) {
+  if (
+    !sessionStorage.getItem("id") ||
+    sessionStorage.getItem("is_manager") != 1
+  ) {
     router.push("/login");
   }
   fetchUsers();
@@ -219,11 +261,5 @@ a:hover {
 
 .pagination button {
   margin: 0 10px;
-}
-@media (max-width: 768px) {
-  .additional-div {
-    display: block;
-    height: 100px;
-  }
 }
 </style>

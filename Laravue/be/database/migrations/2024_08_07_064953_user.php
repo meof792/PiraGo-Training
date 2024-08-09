@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('username'); //tên đăng nhập
             $table->string('password'); //mật khẩu
             $table->date('birthday')->nullable();
-            $table->string('id_card')->nullable();
+            $table->string('email')->nullable();
             $table->string('path')->nullable(); //đường dẫn ảnh cá nhân
             $table->integer('in_company'); //tên công ty
             $table->integer('is_manager')->default(0);

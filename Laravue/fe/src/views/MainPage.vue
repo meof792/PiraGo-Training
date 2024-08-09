@@ -71,7 +71,7 @@ const fetchNoti = async () => {
       "http://127.0.0.1:8000/api/first-noti",
       {
         params: {
-          id: localStorage.getItem("id"), // id người dùng
+          id: sessionStorage.getItem("id"), // id người dùng
         },
       },
       {
@@ -89,7 +89,7 @@ const fetchNoti = async () => {
 };
 
 onMounted(() => {
-  if (!localStorage.getItem("id")) {
+  if (!sessionStorage.getItem("id")) {
     router.push("/login");
   }
   fetchNoti();
@@ -104,9 +104,6 @@ onMounted(() => {
   padding: 15px;
 }
 
-.additional-div {
-  display: none; /* Ẩn mặc định */
-}
 a {
   text-decoration: none;
   color: #f01212;
@@ -202,10 +199,6 @@ a {
 /* End Section 3 */
 
 @media (max-width: 768px) {
-  .additional-div {
-    display: block;
-    height: 100px;
-  }
   .noti-box {
     width: 100%;
     height: 300px;

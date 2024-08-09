@@ -6,9 +6,21 @@ import LoginPage from '../views/LoginPage.vue';
 import RegisterPage from '../views/RegisterPage.vue';
 import NotiPage from '../views/NotiPage.vue';
 import MemberPage from '../views/MemberPage.vue';
+import AddMember from '../views/AddMember.vue';
+import ProfilePage from '../views/ProfilePage.vue';
 
 // Định nghĩa các routes
 const routes = [
+  {
+    path: '/profile',
+    name: 'ProfilePage',
+    component: ProfilePage
+  },
+  {
+    path: '/add-member',
+    name: 'AddMember',
+    component: AddMember
+  },
   {
     path: '/admin-member',
     name: 'MemberPage',

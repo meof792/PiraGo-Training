@@ -57,8 +57,9 @@ const login = async () => {
     );
 
     if (response.data.success) {
-      localStorage.setItem('id', response.data.id);
-      localStorage.setItem('username', response.data.username);
+      sessionStorage.setItem('id', response.data.id);
+      sessionStorage.setItem('username', response.data.username);
+      sessionStorage.setItem('is_manager', response.data.is_manager);
       alert('Đăng nhập thành công!');
       // router.push('/');
       window.location.href="/";
@@ -70,7 +71,7 @@ const login = async () => {
   }
 };
 onMounted(() => {
-  if (localStorage.getItem("id")) {
+  if (sessionStorage.getItem("id")) {
     router.push("/");
   }
 });

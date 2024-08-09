@@ -26,6 +26,10 @@ import Navbar from "./views/NavbarPage.vue";
 </script>
 
 <style>
+.additional-div {
+  display: none;
+  height: 100px;
+}
 body {
   overflow-x: hidden;
   /* overflow-y: hidden; */
@@ -46,6 +50,10 @@ body {
 
   .nav-column {
     display: none;
+  }
+  .additional-div {
+    display: block;
+    height: 100px;
   }
 }
 </style>
