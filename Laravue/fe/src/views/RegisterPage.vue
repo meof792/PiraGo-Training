@@ -95,6 +95,7 @@ onMounted(() => {
   if (sessionStorage.getItem("id")) {
     router.push("/");
   }
+  document.title = "Đăng ký"
 });
 </script>
   

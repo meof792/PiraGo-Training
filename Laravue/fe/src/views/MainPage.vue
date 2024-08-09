@@ -92,6 +92,7 @@ onMounted(() => {
   if (!sessionStorage.getItem("id")) {
     router.push("/login");
   }
+  document.title = "Trang chủ"
   fetchNoti();
 });
 

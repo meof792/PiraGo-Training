@@ -74,6 +74,7 @@ onMounted(() => {
   if (sessionStorage.getItem("id")) {
     router.push("/");
   }
+  document.title = "Đăng nhập"
 });
 </script>
 

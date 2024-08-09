@@ -13,17 +13,17 @@
       <div class="row">
         <div
           class="col-lg-3 col-md-6 col-sm-6 col-6"
-          style="padding: 10px"
+          style="padding: 10px; padding-left: 80px"
           v-for="member in paginatedMember"
           :key="member.id"
         >
-          <router-link class="card" style="width: 100%; height: 100%" to="#">
+          <router-link class="card" style="width: 70%; height: 100%; text-align: center; align-items: center; justify-content: center;" to="#">
             <img
               src="test.png"
               alt="Avatar"
-              style="width: 100%; height: 200px"
+              style="width: 100%; height: 200px;"
             />
-            <div class="username">{{ member.username }}</div>
+            <div class="username"><b>{{ member.username }}</b></div>
             <div class="info">
               <span class="info-label">Mã đăng nhập:</span>
               {{ member.id }}
@@ -231,6 +231,7 @@ onMounted(() => {
   ) {
     router.push("/login");
   }
+  document.title = "Quản lí thành viên"
   fetchUsers();
 });
 </script>
@@ -261,5 +262,7 @@ a:hover {
 
 .pagination button {
   margin: 0 10px;
+}
+@media (max-width: 768px) {
 }
 </style>

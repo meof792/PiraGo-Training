@@ -107,6 +107,7 @@ onMounted(() => {
   if (!sessionStorage.getItem("id")) {
     router.push("/login");
   }
+  document.title = "Hò sơ";
   fetchUsers();
 });
 
@@ -174,7 +175,7 @@ const updateProfile = async () => {
   
 <style scoped>
 .container {
-  padding-top: 70px;
+  padding-top: 60px;
 }
 
 .avatar-container {
